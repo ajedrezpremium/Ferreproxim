@@ -277,3 +277,4 @@ html[data-theme=light] .quote-box,
 html[data-theme=light] .photo-section{box-shadow:0 10px 26px rgba(25,40,20,.08)}
 
 .po-embedded .wa-float{display:none!important}
+.theme-toggle{cursor:pointer;font-size:1rem;line-height:1;padding:0 10px;min-width:38px}
