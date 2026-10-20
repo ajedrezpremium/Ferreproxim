@@ -250,3 +250,8 @@ input:focus,select:focus{border-color:var(--amber)}
 ::-webkit-scrollbar{width:9px;height:9px}
 ::-webkit-scrollbar-thumb{background:var(--line);border-radius:9px}
 ::-webkit-scrollbar-track{background:transparent}
+
+
+/* Footer: mapa bajo demanda */
+.map-toggle{margin-top:8px;background:rgba(22,163,74,.1);border:1px solid rgba(22,163,74,.35);color:#166534;padding:8px 12px;border-radius:10px;font-weight:700;cursor:pointer}
+.map-embed{margin-top:10px}
