@@ -476,3 +476,26 @@ document.addEventListener('DOMContentLoaded', async ()=>{
 
 /* Mapa bajo demanda (sin cargar Google hasta el clic) */
 document.querySelectorAll('.map-toggle').forEach(function(btn){btn.addEventListener('click',function(){var wrap=btn.nextElementSibling;if(!wrap)return;if(wrap.hidden){if(!wrap.querySelector('iframe')){var iframe=document.createElement('iframe');iframe.src=btn.dataset.map;iframe.loading='lazy';iframe.title='Mapa de la tienda';iframe.style.width='100%';iframe.style.height='220px';iframe.style.border='0';iframe.style.borderRadius='12px';wrap.appendChild(iframe);}wrap.hidden=false;btn.textContent='🗺 Ocultar mapa';}else{wrap.hidden=true;btn.textContent='🗺 Ver mapa';}});});
+
+/* ---------- WHATSAPP ---------- */
+(function () {
+  var cfg = (window.FERRE_CONFIG || {}).company || {};
+  var n = String(cfg.whatsapp || '').replace(/\D/g, '');
+  if (!n) return;
+  var f = document.getElementById('waFloat');
+  if (f) f.href = 'https://wa.me/' + n + '?text=' + encodeURIComponent('Hola, vengo de la web de Ferreproxim. Necesito ayuda con un producto o avería.');
+  var b = document.getElementById('btnQuoteWA');
+  if (b) b.addEventListener('click', function () {
+    if (!quote.length) { toast('Añade productos al presupuesto'); return; }
+    var lines = quote.map(function (l) {
+      var p = CATALOG.find(function (x) { return x.sku === l.sku; });
+      return l.qty + ' x ' + ((p && (p[LANG] || p.es)) || l.sku) + ' (' + l.sku + ')';
+    }).join('\n');
+    var total = quote.reduce(function (s, l) {
+      var p = CATALOG.find(function (x) { return x.sku === l.sku; });
+      return s + (p ? p.price * l.qty : 0);
+    }, 0);
+    var txt = 'Hola, quiero este presupuesto:\n' + lines + '\n\nTotal aprox: ' + total.toFixed(2) + ' € (IVA incluido)';
+    window.open('https://wa.me/' + n + '?text=' + encodeURIComponent(txt), '_blank');
+  });
+})();

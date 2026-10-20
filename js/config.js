@@ -27,6 +27,7 @@ window.FERRE_CONFIG = {
     web: 'https://bermoferreteria.com/',
     address: 'R. de Pizarro, 38, 36204 Vigo, Pontevedra',
     phone: '986 138 596',
-    email: 'vigo8019@ferreproxim.es'
+    email: 'vigo8019@ferreproxim.es',
+    whatsapp: '+34986138596' // confirmar número de WhatsApp Business
   }
 };
