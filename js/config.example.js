@@ -1,10 +1,14 @@
-/* ═══════════ Ferreproxim · Configuración (plantilla pública) ═══════════
-   Copia este archivo a js/config.js y rellena tus claves.
-   js/config.js y .env están en .gitignore y nunca se suben al repo.      */
+/* ═══════════ Ferreproxim · Configuración (plantilla) ═══════════
+   js/config.js (público) se sube al repo SIN claves.
+   Para desarrollo local crea js/config.local.js (ignorado por git):
+     window.FERRE_CONFIG_LOCAL = { openrouter: { key: 'sk-or-...' } };
+   En producción la clave se configura en Vercel:
+     OPENROUTER_API_KEY = sk-or-...
+     OPENROUTER_MODEL   = minimax/minimax-m3.1-flash:free (opcional)          */
 window.FERRE_CONFIG = {
+  apiProxy: '/api/chat',
   openrouter: {
     endpoint: 'https://openrouter.ai/api/v1',
-    key: 'sk-or-v1-XXXXXXXXXXXXXXXXXXXXXXXX',
     model: 'minimax/minimax-m3.1-flash:free',
     freeModels: ['minimax/minimax-m3.1-flash:free']
   },

@@ -1,0 +1,7 @@
+.env
+js/config.local.js
+.git
+.gitignore
+megaprompt_ferreproxim_ia.md
+node_modules
+*.log

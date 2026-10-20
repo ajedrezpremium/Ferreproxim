@@ -1,13 +1,22 @@
 /* ═══════════ Ferreproxim · Orquestador multi-agente ═══════════ */
-const CFG = window.FERRE_CONFIG || {openrouter:{}, supabase:{}, company:{}};
+const IS_FILE = location.protocol === 'file:';
+const _base = window.FERRE_CONFIG || {};
+const _local = window.FERRE_CONFIG_LOCAL || {};
+const CFG = {
+  ..._base,
+  apiProxy: _base.apiProxy || '/api/chat',
+  openrouter: { ...(_base.openrouter||{}), ...(_local.openrouter||{}) },
+  supabase: { ...(_base.supabase||{}), ...(_local.supabase||{}) },
+  company: _base.company || {}
+};
 function AIcfgDefaults(){
   const saved = {
     endpoint: localStorage.getItem('ai_endpoint'), key: localStorage.getItem('ai_key'), model: localStorage.getItem('ai_model')
   };
   const or = CFG.openrouter || {};
   return {
-    endpoint: saved.endpoint ?? or.endpoint ?? '',
-    key: saved.key ?? or.key ?? '',
+    endpoint: saved.endpoint ?? (IS_FILE ? (or.endpoint || '') : CFG.apiProxy),
+    key: saved.key ?? (IS_FILE ? (or.key || '') : ''),
     model: saved.model ?? or.model ?? 'minimax/minimax-m3.1-flash:free',
     pro: localStorage.getItem('ai_pro') !== '0',
     local: localStorage.getItem('ai_local') !== '0',
@@ -39,27 +48,33 @@ async function callAPI(agentKey, text, history){
   const sys = (agent.sys[LANG==='gl'?'gl':LANG==='en'?'en':'es'] || agent.sys.es)
     + '\n\nCATÁLOGO ACTUAL:\n' + catalogForPrompt()
     + (AIcfg.pro ? PRO_DIRECTIVE[LANG==='gl'?'gl':LANG==='en'?'en':'es'] : '');
-  const base = AIcfg.endpoint.replace(/\/+$/,'');
-  const headers = { 'Content-Type':'application/json', ...(AIcfg.key ? {'Authorization':'Bearer '+AIcfg.key} : {}) };
-  if(base.includes('openrouter')){
+  const messages = [
+    {role:'system', content: sys},
+    ...history.slice(-7).map(m=>({role: m.role, content: m.content.replace(/<[^>]+>/g,'')}))
+  ];
+  if(messages[messages.length-1].content !== text) messages.push({role:'user', content:text});
+
+  const isProxy = !/^https?:\/\//i.test(AIcfg.endpoint || '');
+  const endpoint = isProxy ? (AIcfg.endpoint || CFG.apiProxy || '/api/chat') : AIcfg.endpoint.replace(/\/+$/,'') + '/chat/completions';
+  const headers = { 'Content-Type':'application/json' };
+  if(!isProxy && AIcfg.key) headers['Authorization'] = 'Bearer ' + AIcfg.key;
+  if(!isProxy && endpoint.includes('openrouter')){
     headers['HTTP-Referer'] = CFG.company?.web || location.href;
     headers['X-Title'] = 'Ferreproxim · Bermo Ferretería';
   }
-  const res = await fetch(base + '/chat/completions', {
+
+  const res = await fetch(endpoint, {
     method:'POST',
     headers,
     body: JSON.stringify({
       model: AIcfg.model,
-      messages: [
-        {role:'system', content: sys},
-        ...history.slice(-6).map(m=>({role: m.role, content: m.content.replace(/<[^>]+>/g,'')})),
-        {role:'user', content: text}
-      ],
+      messages,
       temperature: 0.2,
       max_tokens: 1600
     })
   });
   if(!res.ok) throw new Error('API ' + res.status);
   const data = await res.json();
+  if(isProxy) return (data.content || '').trim();
   return (data.choices?.[0]?.message?.content || '').trim();
 }

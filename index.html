@@ -332,6 +332,11 @@
 <div class="toast" id="toast" hidden></div>
 
 <script src="js/config.js"></script>
+<script>
+if (location.protocol === 'file:') {
+  document.write('<script src="js/config.local.js"><\/script>');
+}
+</script>
 <script src="js/i18n.js"></script>
 <script src="js/data.js"></script>
 <script src="js/voice.js"></script>

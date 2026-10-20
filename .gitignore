@@ -1,6 +1,6 @@
 # Claves privadas — nunca subir
 .env
-js/config.js
+js/config.local.js
 
 # Otros
 *.log
