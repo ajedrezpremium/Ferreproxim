@@ -1,7 +1,7 @@
 /* ═══════════ Ferreproxim · Catálogo + Agentes + Motor local ═══════════ */
 /* Precios con IVA (21%). stock: nº unidades */
 
-const CATALOG = [
+const CATALOG = (typeof window !== 'undefined' && Array.isArray(window.FERRE_CATALOGO) && window.FERRE_CATALOGO.length) ? window.FERRE_CATALOGO : [
   {id:1, sku:"BM-1001", cat:"fontaneria", emoji:"🚰", price:14.90, stock:24,
    es:"Juntas de estanqueidad 1/2\" (10 ud.)", gl:"Xuntas de estanqueidade 1/2\" (10 ud.)", en:"Tap washers 1/2\" (10 ud.)",
    kw:"grifo gotea agua fuga junta juntas tapa estanqueidad billa junta washer dripping tap plumbing leak sink cartucho cerámica"},

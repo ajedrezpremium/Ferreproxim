@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Ferreproxim — Asistente IA para ferretería · Demo</title>
+<style>
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Inter', -apple-system, Segoe UI, Roboto, sans-serif; color: #12211b; background: #fff; }
+  .page { width: 210mm; min-height: 297mm; padding: 18mm 16mm; page-break-after: always; position: relative; }
+  .page:last-child { page-break-after: auto; }
+  .brand { display: flex; align-items: center; justify-content: space-between; border-bottom: 3px solid #16a34a; padding-bottom: 10px; margin-bottom: 18px; }
+  .brand h1 { font-size: 22px; margin: 0; letter-spacing: .5px; }
+  .brand h1 b { color: #16a34a; }
+  .brand span { font-size: 10px; letter-spacing: 2px; color: #15803d; text-transform: uppercase; }
+  .hero-title { font-size: 30px; line-height: 1.15; margin: 0 0 10px; font-weight: 900; }
+  .hero-title b { color: #16a34a; }
+  .sub { font-size: 12px; color: #4b5f57; line-height: 1.6; margin-bottom: 16px; }
+  .shot { width: 100%; border: 1px solid #dceee3; border-radius: 10px; margin: 12px 0 16px; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 14px 0; }
+  .card { border: 1px solid #dceee3; border-radius: 10px; padding: 12px 14px; background: #f6fbf8; }
+  .card h3 { margin: 0 0 6px; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: #15803d; }
+  .card p, .card li { font-size: 11px; color: #223; line-height: 1.55; margin: 0; }
+  .card ul { margin: 0; padding-left: 14px; }
+  h2 { font-size: 14px; letter-spacing: 1px; text-transform: uppercase; color: #15803d; margin: 20px 0 8px; }
+  table { width: 100%; border-collapse: collapse; font-size: 11px; }
+  th, td { text-align: left; padding: 7px 8px; border-bottom: 1px solid #dceee3; vertical-align: top; }
+  th { background: #eaf7ef; color: #166534; font-size: 10px; text-transform: uppercase; letter-spacing: .8px; }
+  .offer { background: #0f241b; color: #fff; border-radius: 10px; padding: 14px 16px; margin-top: 14px; }
+  .offer h3 { margin: 0 0 6px; font-size: 14px; color: #4ade80; }
+  .offer p { margin: 0; font-size: 11px; line-height: 1.6; color: #d9f2e3; }
+  .foot { position: absolute; bottom: 12mm; left: 16mm; right: 16mm; font-size: 9px; color: #999; border-top: 1px solid #eee; padding-top: 6px; display: flex; justify-content: space-between; }
+  .contact { font-size: 11px; color: #333; margin-top: 12px; line-height: 1.7; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="brand"><h1>FERRE<b>PROXIM</b> <small style="font-size:10px;color:#15803d">BERMO FERRETERÍA · VIGO</small></h1><span>Asistente IA</span></div>
+  <div class="hero-title">Tu ferretería de proximidad,<br>ahora con <b>inteligencia artificial</b>.</div>
+  <div class="sub">Dinos qué avería o proyecto tienes. La IA identifica la pieza, calcula los materiales y te da la lista exacta para comprarla en segundos — también para presupuestos B2B.</div>
+  <img class="shot" src="shots/home-desktop.png" alt="Ferreproxim">
+  <div class="cols">
+    <div class="card"><h3>Mostrador 24/7</h3><p>“Grifo que gotea”, “colgar un estante”, “pintar una habitación”: lista exacta de materiales y alternativas.</p></div>
+    <div class="card"><h3>Calculadoras DIY</h3><p>Pintura, tornillería, césped y más: litros, unidades y coste estimado con IVA.</p></div>
+    <div class="card"><h3>Presupuestos B2B</h3><p>Para obras y profesionales: cantidades, precios, IVA y plazo en un presupuesto listo para enviar.</p></div>
+    <div class="card"><h3>ES · GL · EN</h3><p>Atención a vecinos y clientes extranjeros en su idioma, también por voz.</p></div>
+  </div>
+  <div class="offer">
+    <h3>Piloto 30 días</h3>
+    <p>Asistente en vuestra web y WhatsApp, catálogo y calculadoras con vuestros precios. Éxito medido: <b>50 conversaciones</b>, <b>10 presupuestos</b> y <b>3 pedidos</b> en 30 días. Si no se cumple, se amplía sin coste.</p>
+  </div>
+  <div class="contact">Demo: <b>https://ferreproxim.vercel.app</b> &nbsp;·&nbsp; Contacto: 986 138 596 · vigo8019@ferreproxim.es</div>
+  <div class="foot"><span>Ferreproxim · Bermo Ferretería · Vigo</span><span>Documento comercial — octubre 2026</span></div>
+</div>
+
+<div class="page">
+  <div class="brand"><h1>DEMO EN 12 MINUTOS</h1><span>Guion para la reunión</span></div>
+  <table>
+    <tr><th>Min</th><th>Escena</th><th>Qué decimos / mostramos</th></tr>
+    <tr><td>1–3</td><td>Mostrador</td><td>“Tengo un grifo que gotea, ¿qué necesito?” → lista exacta: cartucho 35/40/45 mm, juntas, PTFE, herramientas.</td></tr>
+    <tr><td>4–5</td><td>Identificación</td><td>Foto o descripción de una pieza → referencia y compatibilidades (función beta: mostrar solo si está validada).</td></tr>
+    <tr><td>6–7</td><td>Calculadora</td><td>“Pintura para 4×3 m” → litros, botes y coste.</td></tr>
+    <tr><td>8–9</td><td>Presupuesto B2B</td><td>20 cajas + 10 kg → presupuesto con IVA y plazo, listo para enviar.</td></tr>
+    <tr><td>10</td><td>Idiomas</td><td>Cliente extranjero: EN/GL.</td></tr>
+    <tr><td>11–12</td><td>Cierre</td><td>Piloto 30 días, condiciones y siguiente paso.</td></tr>
+  </table>
+  <h2>Qué necesitamos para arrancar</h2>
+  <div class="cols">
+    <div class="card"><h3>Datos</h3><ul><li>Top 50–100 productos reales (precio, stock, foto)</li><li>Número de WhatsApp de la tienda</li><li>Email de pedidos/presupuestos</li></ul></div>
+    <div class="card"><h3>Técnico</h3><ul><li>Catálogo cargado desde CSV</li><li>Crédito OpenRouter (~5–10 €)</li><li>Revisión de calculadoras con precios reales</li></ul></div>
+  </div>
+  <h2>Siguiente paso</h2>
+  <p style="font-size:11px;color:#333">1) Demo de 15 min. 2) Carga de catálogo y precios en 48 h. 3) Piloto de 30 días con métricas semanales.</p>
+  <div class="foot"><span>Demo: https://ferreproxim.vercel.app</span><span>PADELORGANIZERS · soluciones IA para negocios</span></div>
+</div>
+</body>
+</html>

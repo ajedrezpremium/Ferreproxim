@@ -5,3 +5,10 @@ js/config.local.js
 megaprompt_ferreproxim_ia.md
 node_modules
 *.log
+
+marketing/
+data/
+scripts/
+PLAN_DEMO_V1.0.md
+README.md
+megaprompt_ferreproxim_ia.md
