@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ferreproxim · Bermo Ferretería · Asistente IA</title>
+<meta name="description" content="La ferretería con IA nº1 de España. Asistente experto 24/7, búsqueda semántica, identificación por foto, calculadoras DIY y presupuestos B2B instantáneos.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔧</text></svg>">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<!-- ══════════ HEADER ══════════ -->
+<header class="header">
+  <div class="container header-inner">
+    <a class="brand" href="#" aria-label="Ferreproxim">
+      <span class="brand-mark">🔧</span>
+      <span class="brand-text">FERRE<b>PROXIM</b><small data-i18n="tagline">Bermo Ferretería</small></span>
+    </a>
+    <nav class="nav">
+      <a href="#productos" data-i18n="nav_store">Tienda</a>
+      <a href="#agentes" data-i18n="nav_services">Servicios</a>
+      <a href="#sobre" data-i18n="nav_about">Sobre nosotros</a>
+      <a href="#contacto" data-i18n="nav_contact">Contacta</a>
+    </nav>
+    <div class="header-actions">
+      <select id="langSelect" class="lang-select" aria-label="Idioma">
+        <option value="es">🇪🇸 ES</option>
+        <option value="gl">GX GL</option>
+        <option value="en">🇬🇧 EN</option>
+      </select>
+      <button id="btnSettings" class="icon-btn" title="IA / Configuración" aria-label="Configuración">⚙️</button>
+      <button id="btnChat" class="btn btn-primary chat-cta">
+        💬 <span data-i18n="chat_cta">Hablar con IA</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════ HERO ══════════ -->
+<section class="hero">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <span class="badge-ai">✨ <span data-i18n="hero_badge">Asistente IA experto 24/7</span></span>
+      <h1 data-i18n-html="hero_title">Tu ferretería de proximidad, ahora con <b>inteligencia artificial</b></h1>
+      <p data-i18n="hero_sub">Dinos qué avería o proyecto tienes. La IA identifica la pieza, calcula los materiales y te da la lista exacta para comprarla en segundos.</p>
+      <form id="heroSearchForm" class="search-bar" autocomplete="off">
+        <span class="search-icon">🔎</span>
+        <input id="heroSearch" type="text" data-i18n-ph="search_ph" placeholder='Ej: "necesito arreglar un grifo que gotea"' aria-label="Búsqueda semántica">
+        <button type="button" id="heroMic" class="icon-btn mic" title="Voz a texto">🎙️</button>
+        <button type="submit" class="btn btn-primary" data-i18n="search_btn">Buscar con IA</button>
+      </form>
+      <div class="chips" id="heroChips"></div>
+      <div class="hero-stats">
+        <div><b>3.500+</b><span data-i18n="stat_refs">Referencias</span></div>
+        <div><b>24/7</b><span data-i18n="stat_agents">Agentes IA</span></div>
+        <div><b>-8%</b><span data-i18n="stat_b2b">Tarifa Pro B2B</span></div>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="mock-chat" id="mockChat"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ VALOR ══════════ -->
+<section class="value-strip container">
+  <div class="value-item" data-i18n="val_1">🧠 Búsqueda semántica: entiende tu problema, no tu jerga</div>
+  <div class="value-item" data-i18n="val_2">📸 Identifica piezas por foto</div>
+  <div class="value-item" data-i18n="val_3">🧾 Presupuestos B2B en PDF al instante</div>
+  <div class="value-item" data-i18n="val_4">🚚 Recogida en tienda en 2 horas</div>
+</section>
+
+<!-- ══════════ SOBRE NOSOTROS ══════════ -->
+<section id="sobre" class="section container sobre-section">
+  <div class="sobre-grid">
+    <div>
+      <h2 data-i18n="about_title">Tu ferretería en Vigo de confianza</h2>
+      <p class="muted" data-i18n="about_text">Tu ferretería en Vigo de confianza, te acompañamos para hacer de tus proyectos una realidad.</p>
+      <div class="chips" style="margin-top:1rem">
+        <a class="chip" href="https://bermoferreteria.com/" target="_blank" rel="noopener">🛒 bermoferreteria.com</a>
+        <a class="chip" href="tel:+34986138596">📞 986 138 596</a>
+        <a class="chip" href="mailto:vigo8019@ferreproxim.es">✉️ vigo8019@ferreproxim.es</a>
+      </div>
+    </div>
+    <div class="mock-visual" aria-hidden="true">
+      <span>🏠</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ PRODUCTOS + RESULTADOS SEMÁNTICOS ══════════ -->
+<section id="productos" class="section container">
+  <div class="section-head">
+    <h2 data-i18n="results_title">Resultados inteligentes</h2>
+    <p id="resultsInfo" class="muted" data-i18n="results_info">Busca en lenguaje natural arriba o prueba los ejemplos.</p>
+  </div>
+  <div class="product-grid" id="productGrid"></div>
+</section>
+
+<!-- ══════════ AGENTES ══════════ -->
+<section id="agentes" class="section section-dark">
+  <div class="container">
+    <div class="section-head center">
+      <h2 data-i18n="agents_title">Un equipo de agentes, trabajando para ti</h2>
+      <p data-i18n="agents_sub">Especialistas interconectados: del diagnóstico técnico al presupuesto cerrado.</p>
+    </div>
+    <div class="agent-grid" id="agentGrid"></div>
+  </div>
+</section>
+
+<!-- ══════════ CALCULADORAS ══════════ -->
+<section id="calculadoras" class="section container">
+  <div class="section-head">
+    <h2 data-i18n="calc_title">Calculadoras de proyecto (visual DIY)</h2>
+    <p data-i18n="calc_sub">Dinos qué vas a hacer. La IA calcula los materiales exactos y minimiza el desperdicio.</p>
+  </div>
+  <div class="tabs" id="calcTabs">
+    <button class="tab active" data-calc="pintura">🎨 <span data-i18n="calc_paint">Pintura</span></button>
+    <button class="tab" data-calc="suelo">🪵 <span data-i18n="calc_floor">Suelo laminado</span></button>
+    <button class="tab" data-calc="cemento">🧱 <span data-i18n="calc_cement">Cemento / Mortero</span></button>
+  </div>
+
+  <div class="calc-panel active" id="calc-pintura">
+    <div class="calc-grid">
+      <div class="calc-form">
+        <label data-i18n="calc_area">Superficie a pintar</label>
+        <input id="pintArea" type="number" min="1" value="12"> <span>m²</span>
+        <label data-i18n="calc_coats">Manos</label>
+        <input id="pintManos" type="number" min="1" max="4" value="2">
+        <label data-i18n="calc_perf">Rendimiento (m²/L por mano)</label>
+        <input id="pintRend" type="number" step="0.5" min="3" value="8">
+        <button class="btn btn-primary" id="btnPintura" data-i18n="calc_btn">Calcular</button>
+      </div>
+      <div class="calc-result" id="resPintura"></div>
+    </div>
+  </div>
+
+  <div class="calc-panel" id="calc-suelo">
+    <div class="calc-grid">
+      <div class="calc-form">
+        <label data-i18n="calc_area">Superficie</label>
+        <input id="sueloArea" type="number" min="1" value="12"> <span>m²</span>
+        <label data-i18n="calc_m2box">m² por caja</label>
+        <input id="sueloCaja" type="number" step="0.01" value="2.22">
+        <label data-i18n="calc_waste">Desperdicio sugerido (%)</label>
+        <input id="sueloWaste" type="number" value="8">
+        <button class="btn btn-primary" id="btnSuelo" data-i18n="calc_btn">Calcular</button>
+      </div>
+      <div class="calc-result" id="resSuelo"></div>
+    </div>
+  </div>
+
+  <div class="calc-panel" id="calc-cemento">
+    <div class="calc-grid">
+      <div class="calc-form">
+        <label data-i18n="calc_area">Superficie / volumen</label>
+        <input id="cemArea" type="number" min="1" value="10"> <span>m²</span>
+        <label data-i18n="calc_thick">Espesor (cm)</label>
+        <input id="cemSpc" type="number" min="1" value="5">
+        <label data-i18n="calc_cem_type">Tipo de mortero</label>
+        <select id="cemTipo">
+          <option value="22" data-i18n="cem_light">Mortero ligero (22 kg saco · 3 kg/m²/cm)</option>
+          <option value="25" data-i18n="cem_std">Cemento CEM II (25 kg saco · 2 kg/m²/cm)</option>
+        </select>
+        <button class="btn btn-primary" id="btnCemento" data-i18n="calc_btn">Calcular</button>
+      </div>
+      <div class="calc-result" id="resCemento"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ B2B ══════════ -->
+<section id="b2b" class="section section-dark">
+  <div class="container b2b-grid">
+    <div>
+      <h2 data-i18n="b2b_title">Zona Pro · Presupuestos B2B instantáneos</h2>
+      <p data-i18n="b2b_sub">Añade referencias, ajusta cantidades y genera un presupuesto formal con IVA y descuentos por volumen. Descárgalo en PDF o compártelo.</p>
+      <ul class="b2b-list">
+        <li data-i18n="b2b_b1">✅ Tarifas por volumen automáticas</li>
+        <li data-i18n="b2b_b2">✅ Búsqueda por SKU / EAN / compatibilidad</li>
+        <li data-i18n="b2b_b3">✅ Pedidos recurrentes para fontaneros, electricistas y talleres</li>
+        <li data-i18n="b2b_b4">✅ Recogida en tienda en 2 h</li>
+      </ul>
+    </div>
+    <div class="quote-box">
+      <h3>🧾 <span data-i18n="quote_title">Constructor de presupuesto</span></h3>
+      <div class="quote-add">
+        <select id="quoteProduct"></select>
+        <input id="quoteQty" type="number" min="1" value="1" title="Uds.">
+        <button class="btn btn-primary" id="btnQuoteAdd">+</button>
+      </div>
+      <table class="quote-table" id="quoteTable"></table>
+      <div class="quote-totals" id="quoteTotals"></div>
+      <div class="quote-actions">
+        <button class="btn btn-ghost" id="btnQuoteCopy">📋 <span data-i18n="quote_copy">Copiar</span></button>
+        <button class="btn btn-ghost" id="btnQuoteShare">📤 <span data-i18n="quote_share">Compartir</span></button>
+        <button class="btn btn-primary" id="btnQuotePDF">🧾 PDF</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FOTO ══════════ -->
+<section class="section container photo-section">
+  <div class="photo-grid">
+    <div>
+      <h2 data-i18n="photo_title">📸 ¿Buscas esta pieza y no sabes cómo se llama?</h2>
+      <p data-i18n="photo_sub">Haz una foto de la bisagra, tuerca, broca o grifería. La IA la identifica y te muestra el equivalente del catálogo.</p>
+      <input type="file" id="photoInput" accept="image/*" hidden>
+      <button class="btn btn-primary" id="btnPhoto" data-i18n="photo_btn">Subir foto de la pieza</button>
+      <p class="microtip" data-i18n="photo_tip">Consejo: fondo neutro y la pieza centrada. Modo demo: identificación simulada; conecta tu API de visión en ⚙️ para tiempo real.</p>
+    </div>
+    <div id="photoResult" class="photo-result" data-i18n="photo_empty">Sube una foto para identificarla…</div>
+  </div>
+</section>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer class="footer" id="contacto">
+  <div class="container footer-grid">
+    <div>
+      <span class="brand-text">FERRE<b>PROXIM</b><small data-i18n="tagline">Bermo Ferretería</small></span>
+      <p class="footer-about" data-i18n="about_text">Tu ferretería en Vigo de confianza, te acompañamos para hacer de tus proyectos una realidad.</p>
+      <div class="rrss">
+        <a href="#" data-share="facebook" title="Facebook">📘</a>
+        <a href="#" data-share="x" title="X">✖️</a>
+        <a href="#" data-share="whatsapp" title="WhatsApp">💬</a>
+        <a href="#" data-share="linkedin" title="LinkedIn">💼</a>
+        <a href="#" data-share="email" title="Email">✉️</a>
+        <a href="#" data-share="native" title="Compartir">📤</a>
+      </div>
+    </div>
+    <div>
+      <h4 data-i18n="footer_menu">Contacto</h4>
+      <a href="https://maps.google.com/?q=R.+de+Pizarro,+38,+36204+Vigo" target="_blank" rel="noopener">📍 R. de Pizarro, 38, 36204 Vigo</a>
+      <a href="tel:+34986138596">📞 986 138 596</a>
+      <a href="mailto:vigo8019@ferreproxim.es">✉️ vigo8019@ferreproxim.es</a>
+      <a href="https://bermoferreteria.com/" target="_blank" rel="noopener">🌐 bermoferreteria.com</a>
+    </div>
+    <div>
+      <h4 data-i18n="footer_menu2">Menú</h4>
+      <a href="#productos" data-i18n="nav_store">Tienda</a>
+      <a href="#agentes" data-i18n="nav_services">Servicios</a>
+      <a href="#sobre" data-i18n="nav_about">Sobre nosotros</a>
+      <a href="#contacto" data-i18n="nav_contact">Contacta</a>
+    </div>
+    <div>
+      <h4 data-i18n="footer_legal_head">Legal</h4>
+      <a href="legal.html#privacidad" data-i18n="legal_privacy">Política de privacidad</a>
+      <a href="legal.html#aviso" data-i18n="legal_notice">Aviso legal</a>
+      <a href="legal.html#terminos" data-i18n="legal_terms">Términos y condiciones de uso</a>
+      <a href="legal.html#cookies" data-i18n="legal_cookies">Política de cookies</a>
+    </div>
+  </div>
+  <div class="container footer-legal">© 2026 Ferreproxim · <span data-i18n="footer_legal">IVA incluido · Precios con IVA 21%</span></div>
+</footer>
+
+<!-- ══════════ CHAT DRAWER ══════════ -->
+<div class="chat-overlay" id="chatOverlay"></div>
+<aside class="chat-drawer" id="chatDrawer" aria-label="Asistente IA">
+  <div class="chat-head">
+    <div class="chat-agent-info">
+      <span class="chat-agent-avatar" id="chatAgentAvatar">🤖</span>
+      <div>
+        <b id="chatAgentName">BermoBot</b>
+        <small id="chatAgentRole" class="muted"></small>
+      </div>
+    </div>
+    <div class="chat-head-actions">
+      <select id="agentSelect" title="Elegir agente">
+        <option value="bermobot">BermoBot</option>
+        <option value="tecnipro">TecniPro</option>
+        <option value="manitas">ManitasIA</option>
+        <option value="postventa">PostVenta</option>
+      </select>
+      <button class="icon-btn" id="btnVoiceSettings" title="⚙️ Voz">🔊</button>
+      <button class="icon-btn" id="btnChatClose" title="Cerrar">✕</button>
+    </div>
+  </div>
+  <div class="chat-msgs" id="chatMsgs"></div>
+  <div class="chat-suggest" id="chatSuggest"></div>
+  <form class="chat-inputbar" id="chatForm">
+    <button type="button" class="icon-btn mic" id="chatMic" title="Voz a texto">🎙️</button>
+    <input id="chatInput" data-i18n-ph="chat_ph" placeholder="Describe tu avería, proyecto o referencia…" autocomplete="off">
+    <button type="button" class="icon-btn" id="btnChatPhoto" title="Identificar por foto">📷</button>
+    <button type="button" class="icon-btn tts-toggle" id="btnTTS" title="Texto a voz">🔈</button>
+    <button type="submit" class="btn btn-primary" title="Enviar">➤</button>
+  </form>
+</aside>
+
+<!-- ══════════ MODAL: AJUSTES IA ══════════ -->
+<div class="modal-overlay" id="settingsModal" hidden>
+  <div class="modal">
+    <div class="modal-head"><h3>⚙️ <span data-i18n="settings_title">Configuración IA</span></h3><button class="icon-btn" id="btnSettingsClose">✕</button></div>
+    <p class="muted" data-i18n="settings_sub">Conecta un endpoint compatible con OpenAI (GPT-4o, Claude vía gateway, Ollama, LM Studio…). Sin API, Ferreproxim usa su motor local.</p>
+    <label data-i18n="settings_endpoint">Endpoint (URL base)</label>
+    <input id="cfgEndpoint" placeholder="https://openrouter.ai/api/v1">
+    <label data-i18n="settings_key">API Key (se guarda solo en tu navegador)</label>
+    <input id="cfgKey" type="password" placeholder="sk-or-…">
+    <label data-i18n="settings_model">Modelo</label>
+    <input id="cfgModel" placeholder="minimax/minimax-m3.1-flash:free">
+    <div class="modal-actions">
+      <label class="toggle"><input type="checkbox" id="cfgPro" checked><span data-i18n="settings_pro">Modo Agente PRO (razonamiento paso a paso)</span></label>
+      <label class="toggle"><input type="checkbox" id="cfgLocal" checked><span data-i18n="settings_local">Motor local (fallback)</span></label>
+    </div>
+    <button class="btn btn-primary block" id="btnSaveSettings" data-i18n="save">Guardar</button>
+  </div>
+</div>
+
+<!-- ══════════ MODAL: VOZ ══════════ -->
+<div class="modal-overlay" id="voiceModal" hidden>
+  <div class="modal">
+    <div class="modal-head"><h3>🔊 <span data-i18n="voice_title">Idioma y voz</span></h3><button class="icon-btn" id="btnVoiceClose">✕</button></div>
+    <label data-i18n="voice_lang">Idioma del asistente</label>
+    <select id="voiceLang">
+      <option value="es">🇪🇸 Español</option>
+      <option value="gl">🇪🇸 Galego</option>
+      <option value="en">🇬🇧 English</option>
+    </select>
+    <label data-i18n="voice_gender">Voz</label>
+    <div class="gender-row">
+      <button class="btn ghost-g active" data-gender="female">♀ <span data-i18n="voice_female">Femenina</span></button>
+      <button class="btn ghost-g" data-gender="male">♂ <span data-i18n="voice_male">Masculina</span></button>
+    </div>
+    <label data-i18n="voice_voice">Voces disponibles en tu sistema</label>
+    <select id="voicePick"></select>
+    <button class="btn btn-ghost block" id="btnTestVoice">▶️ <span data-i18n="voice_test">Probar voz</span></button>
+  </div>
+</div>
+
+<input type="file" id="chatPhotoInput" accept="image/*" hidden>
+<div class="toast" id="toast" hidden></div>
+
+<script src="js/config.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/data.js"></script>
+<script src="js/voice.js"></script>
+<script src="js/agent.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

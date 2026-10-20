@@ -1,0 +1,8 @@
+# Claves privadas — nunca subir
+.env
+js/config.js
+
+# Otros
+*.log
+__pycache__/
+node_modules/
