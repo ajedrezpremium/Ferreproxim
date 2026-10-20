@@ -259,3 +259,19 @@ input:focus,select:focus{border-color:var(--amber)}
 /* WhatsApp */
 .wa-float{position:fixed;right:18px;bottom:18px;width:54px;height:54px;border-radius:50%;background:#25D366;color:#fff;display:flex;align-items:center;justify-content:center;font-size:26px;box-shadow:0 10px 24px rgba(0,0,0,.35);text-decoration:none;z-index:900}
 .wa-float:hover{transform:scale(1.05)}
+
+/* ---------- TEMA CLARO (por defecto) ---------- */
+html[data-theme=dark]{color-scheme:dark}
+html[data-theme=light]{color-scheme:light}
+html[data-theme=light]{--bg:#f7f8f5;--bg2:#edf1e9;--panel:#ffffff;--panel2:#f2f5ef;--line:#c2cfbe;--txt:#162016;--txt2:#43523f;--amber:#e58e00;--amber2:#a86b00;--orange:#e26a00;--shadow:0 20px 60px rgba(25,40,20,.12)}
+html[data-theme=light] .header{background:rgba(247,248,245,.92)}
+html[data-theme=light] .hero{background:radial-gradient(900px 420px at 85% -10%,rgba(255,122,0,.10),transparent),radial-gradient(700px 380px at 0% 110%,rgba(255,178,0,.08),transparent)}
+.theme-toggle{font-size:.9rem}
+
+/* Tema claro: sombras y separación */
+html[data-theme=light] .search-bar,
+html[data-theme=light] .chip,
+html[data-theme=light] .hero-card,
+html[data-theme=light] .value-item,
+html[data-theme=light] .quote-box,
+html[data-theme=light] .photo-section{box-shadow:0 10px 26px rgba(25,40,20,.08)}

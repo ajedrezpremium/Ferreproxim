@@ -1,7 +1,10 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-default-theme="light">
 <head>
 <meta charset="UTF-8">
+<script>
+(function(){try{var q=new URLSearchParams(location.search).get('theme');var t=(q==='light'||q==='dark')?q:(localStorage.getItem('site_theme')||document.documentElement.getAttribute('data-default-theme')||'dark');document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ferreproxim · Bermo Ferretería · Asistente IA</title>
 <meta name="description" content="La ferretería con IA nº1 de España. Asistente experto 24/7, búsqueda semántica, identificación por foto, calculadoras DIY y presupuestos B2B instantáneos.">
@@ -27,6 +30,7 @@
       <a href="#contacto" data-i18n="nav_contact">Contacta</a>
     </nav>
     <div class="header-actions">
+      <button id="themeToggle" class="icon-btn theme-toggle" type="button" title="Cambiar tema" aria-label="Cambiar tema">🌙</button>
       <select id="langSelect" class="lang-select" aria-label="Idioma">
         <option value="es">🇪🇸 ES</option>
         <option value="gl">GX GL</option>
