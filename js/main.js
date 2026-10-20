@@ -56,7 +56,7 @@ function runMock(){
   ];
   let i = 0;
   const tick = ()=>{ if(i < steps.length){ box.innerHTML += steps[i].html; i++; } else clearInterval(mockTimer); };
-  tick(); mockTimer = setInterval(tick, steps[1].delay);
+  tick(); tick();
 }
 /* valores dependientes de idioma */
 let heroMock='mock: user', mockCta='mock: cta';
@@ -471,5 +471,4 @@ document.addEventListener('DOMContentLoaded', async ()=>{
   });
 });
 
-/* Reanudar el mock del hero en bucle */
-setInterval(()=>{ if(document.hidden) return; runMock(); }, 14000);
+/* Reanudar el mock del hero solo al cambiar de idioma (sin parpadeos) */
