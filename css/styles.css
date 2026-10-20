@@ -275,3 +275,5 @@ html[data-theme=light] .hero-card,
 html[data-theme=light] .value-item,
 html[data-theme=light] .quote-box,
 html[data-theme=light] .photo-section{box-shadow:0 10px 26px rgba(25,40,20,.08)}
+
+.po-embedded .wa-float{display:none!important}
