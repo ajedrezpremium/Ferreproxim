@@ -15,6 +15,15 @@ function allowRequest(ip) {
   return e.c <= 10;
 }
 
+const DEFAULT_MODEL = process.env.OPENROUTER_MODEL || 'minimax/minimax-m3.1-flash:free';
+const ALLOWED_MODELS = new Set([
+  DEFAULT_MODEL,
+  'minimax/minimax-m3.1-flash:free',
+  'google/gemma-4-31b-it:free',
+  'nvidia/nemotron-3.5-lightning:free',
+  'thinkingmachines/inkling:free'
+]);
+
 module.exports = async (req, res) => {
   res.setHeader('Cache-Control', 'no-store');
   if (req.method === 'OPTIONS') {
@@ -40,8 +49,11 @@ module.exports = async (req, res) => {
     return res.status(400).json({ error: 'messages requerido' });
   }
 
+  const requestedModel = String(body.model || '');
+  const model = ALLOWED_MODELS.has(requestedModel) ? requestedModel : DEFAULT_MODEL;
+
   const payload = {
-    model: body.model || process.env.OPENROUTER_MODEL || 'minimax/minimax-m3.1-flash:free',
+    model,
     messages: messages.slice(-12).map(m => ({
       role: ['system', 'user', 'assistant'].includes(m.role) ? m.role : 'user',
       content: String(m.content || '').slice(0, 12000)
