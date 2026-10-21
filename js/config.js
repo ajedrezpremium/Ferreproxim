@@ -28,6 +28,7 @@ window.FERRE_CONFIG = {
     address: 'R. de Pizarro, 38, 36204 Vigo, Pontevedra',
     phone: '986 138 596',
     email: 'vigo8019@ferreproxim.es',
-    whatsapp: '+34986138596' // confirmar número de WhatsApp Business
+    whatsapp: '+34986138596', // confirmado 21/10/2026
+    whatsappDisplay: '986 13 85 96'
   }
 };

@@ -46,14 +46,22 @@
     </nav>
     <div class="header-actions">
       <button id="themeToggle" class="icon-btn theme-toggle" type="button" title="Cambiar tema" aria-label="Cambiar tema">🌙</button>
-      <select id="langSelect" class="lang-select" aria-label="Idioma">
-        <option value="es">🇪🇸 ES</option>
-        <option value="gl">GX GL</option>
-        <option value="en">🇬🇧 EN</option>
+      <select id="langSelect" class="lang-select" aria-label="Idioma: ES, GL, EN" title="Idioma">
+        <option value="es">ES</option>
+        <option value="gl">GL</option>
+        <option value="en">EN</option>
       </select>
       <button id="btnSettings" class="icon-btn" title="IA / Configuración" aria-label="Configuración">⚙️</button>
-      <button id="btnChat" class="btn btn-primary chat-cta">
-        💬 <span data-i18n="chat_cta">Hablar con IA</span>
+      <button id="btnChat" class="btn btn-primary chat-cta" type="button" title="Agente Ferre IA" aria-label="Abrir Agente Ferre IA" data-tooltip="Agente Ferre IA">
+        <svg class="robot-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="4" y="7" width="16" height="12" rx="3"></rect>
+          <path d="M12 3v4"></path>
+          <circle cx="12" cy="3" r="1.2" fill="currentColor" stroke="none"></circle>
+          <circle cx="9" cy="12" r="1.2" fill="currentColor" stroke="none"></circle>
+          <circle cx="15" cy="12" r="1.2" fill="currentColor" stroke="none"></circle>
+          <path d="M8.5 16h7"></path>
+          <path d="M2 11v4M22 11v4"></path>
+        </svg>
       </button>
     </div>
   </div>
@@ -257,9 +265,10 @@
       <h4 data-i18n="footer_menu">Contacto</h4>
       <a href="https://www.google.com/maps/search/?api=1&query=R.+de+Pizarro+38%2C+36204+Vigo" target="_blank" rel="noopener">📍 R. de Pizarro, 38, 36204 Vigo</a>
 <a href="https://www.google.com/maps/dir/?api=1&destination=R.+de+Pizarro+38%2C+36204+Vigo" target="_blank" rel="noopener">🧭 Cómo llegar</a>
-<button type="button" class="map-toggle" data-map="https://maps.google.com/maps?q=R.+de+Pizarro,+38,+36204+Vigo&output=embed">🗺 Ver mapa</button>
+<button type="button" class="map-toggle" data-map="https://www.openstreetmap.org/export/embed.html?bbox=-8.7194%2C42.2286%2C-8.7134%2C42.2322&amp;layer=mapnik&amp;marker=42.2304%2C-8.7164">🗺 Ver mapa</button>
 <div class="map-embed" hidden></div>
       <a href="tel:+34986138596">📞 986 138 596</a>
+      <a href="https://wa.me/34986138596" target="_blank" rel="noopener">WhatsApp 986 13 85 96</a>
       <a href="mailto:vigo8019@ferreproxim.es">✉️ vigo8019@ferreproxim.es</a>
       <a href="https://bermoferreteria.com/" target="_blank" rel="noopener">🌐 bermoferreteria.com</a>
     </div>
@@ -339,9 +348,9 @@
     <div class="modal-head"><h3>🔊 <span data-i18n="voice_title">Idioma y voz</span></h3><button class="icon-btn" id="btnVoiceClose">✕</button></div>
     <label data-i18n="voice_lang">Idioma del asistente</label>
     <select id="voiceLang">
-      <option value="es">🇪🇸 Español</option>
-      <option value="gl">🇪🇸 Galego</option>
-      <option value="en">🇬🇧 English</option>
+      <option value="es">Español</option>
+      <option value="gl">Galego</option>
+      <option value="en">English</option>
     </select>
     <label data-i18n="voice_gender">Voz</label>
     <div class="gender-row">
@@ -369,6 +378,6 @@ if (location.protocol === 'file:') {
 <script src="js/voice.js"></script>
 <script src="js/agent.js"></script>
 <script src="js/main.js"></script>
-  <a id="waFloat" class="wa-float" href="#" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
+  <a id="waFloat" class="wa-float" href="https://wa.me/34986138596?text=Hola%2C%20vengo%20de%20la%20web%20de%20Ferreproxim.%20Necesito%20ayuda%20con%20un%20producto%20o%20aver%C3%ADa." target="_blank" rel="noopener" aria-label="WhatsApp 986 13 85 96">💬</a>
 </body>
 </html>

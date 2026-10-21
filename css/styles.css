@@ -43,7 +43,10 @@ input:focus,select:focus{border-color:var(--amber)}
 .header-actions{display:flex;align-items:center;gap:.5rem;margin-left:auto}
 .nav + .header-actions{margin-left:0}
 .lang-select{padding:.45rem .55rem;border-radius:8px}
-.chat-cta{font-size:.88rem}
+.chat-cta{position:relative;width:46px;height:46px;padding:0;border-radius:12px;display:grid;place-items:center;font-size:.88rem}
+.chat-cta .robot-icon{width:24px;height:24px;display:block}
+.chat-cta::after{content:attr(data-tooltip);position:absolute;top:calc(100% + 8px);right:0;background:var(--panel);color:var(--txt);border:1px solid var(--line);border-radius:8px;padding:6px 9px;font-size:.72rem;font-weight:600;white-space:nowrap;opacity:0;transform:translateY(-3px);pointer-events:none;transition:.15s;z-index:60;box-shadow:0 8px 22px rgba(0,0,0,.28)}
+.chat-cta:hover::after,.chat-cta:focus-visible::after{opacity:1;transform:translateY(0)}
 
 /* HERO */
 .hero{position:relative;padding:4.2rem 0 3.4rem;background:
@@ -293,7 +296,7 @@ html[data-theme=light] .photo-section{box-shadow:0 10px 26px rgba(25,40,20,.08)}
   .header-actions{gap:.3rem;margin-left:auto;flex-shrink:0}
   .brand-text{font-size:.9rem}
   .brand-text small{display:none}
-  .chat-cta{padding:.55rem .65rem}
+  .chat-cta{width:42px;height:42px;padding:0}
   .chat-cta span{display:none}
   #btnSettings{display:none}
   .lang-select{padding:.35rem .4rem;font-size:.8rem}

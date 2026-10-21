@@ -12,7 +12,7 @@
 | 2 | Sustituir datos mock por catálogo real en `js/data.js` o Supabase (`products`) | Yo | Pendiente |
 | 3 | Validar calculadoras (pintura, tornillería, césped, etc.) con precios reales | Yo + cliente | Pendiente |
 | 4 | Presupuesto B2B: generar PDF/email real con logo y datos fiscales | Yo | Pendiente |
-| 5 | Botón WhatsApp real (número de tienda) y email de pedidos | Cliente | Pendiente |
+| 5 | WhatsApp click-to-chat con número confirmado + email de pedidos | Cliente | HECHO (API pendiente de Meta) |
 | 6 | Crédito OpenRouter (~5–10 €) para respuestas fiables | Cliente | Pendiente |
 | 7 | Probar en móvil: chat, voz, calculadoras, presupuesto | Yo | Pendiente |
 | 8 | Vídeo 60 s + one-pager PDF | Yo | Pendiente |

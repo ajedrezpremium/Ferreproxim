@@ -1,5 +1,25 @@
 # WhatsApp Business — plan de integración (FERREPROXIM)
 
+## Datos confirmados (21/10/2026)
+
+- **Número de WhatsApp Business:** +34 986 13 85 96 (el mismo fijo de la tienda).
+- **Enlaces web:** botón flotante, botón de presupuesto y footer apuntan a `https://wa.me/34986138596`.
+- **Email administrador:** vigo8019@ferreproxim.es.
+- **Requisito:** el fijo debe poder recibir la verificación de Meta (llamada/SMS) y no puede estar activo a la vez en WhatsApp personal/Business app. Si ya tiene WhatsApp, hay que migrarlo o liberarlo.
+- **Importante:** el botón actual es **click-to-chat**. Para que el agente IA atienda dentro de WhatsApp Business hace falta la Cloud API y las credenciales de Meta; no se activa solo con el enlace.
+
+## Checklist de alta en Meta
+
+- [ ] Portfolio de Meta Business verificado (CIF, dirección, web y dominio).
+- [ ] WABA y app de Meta con producto WhatsApp.
+- [ ] Número +34 986 13 85 96 verificado y dado de alta.
+- [ ] Token permanente, `WHATSAPP_PHONE_NUMBER_ID`, `WHATSAPP_BUSINESS_ACCOUNT_ID`, `WHATSAPP_VERIFY_TOKEN`, `META_APP_SECRET`.
+- [ ] Webhook: `https://ferreproxim.vercel.app/api/whatsapp/webhook`.
+- [ ] Método de pago y plantillas aprobadas.
+- [ ] Política de privacidad y opt-in publicados.
+- [ ] Prueba completa: mensaje entrante → agente → respuesta → CRM.
+
+
 ## Estado actual (implementado)
 - Botón flotante de WhatsApp en la web.
 - Enlace “Cómo llegar” y dirección con Google Maps.
