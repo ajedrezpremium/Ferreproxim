@@ -125,24 +125,28 @@ function sanitizeHTML(html){
 function mdToHTML(md){
   const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   const lines = String(md).split(/\r?\n/);
-  let html = '', inList = false;
+  let html = '', listType = null;
+  const closeList = () => { if(listType){ html += '</' + listType + '>'; listType = null; } };
   for(const raw of lines){
     let line = esc(raw.trim());
     if(/^#{1,4}\s+/.test(line)){
-      if(inList){ html += '</ul>'; inList = false; }
+      closeList();
       html += '<h3>' + line.replace(/^#{1,4}\s+/,'') + '</h3>';
       continue;
     }
-    if(/^[-*•]\s+/.test(line)){
-      if(!inList){ html += '<ul>'; inList = true; }
-      html += '<li>' + line.replace(/^[-*•]\s+/,'') + '</li>';
+    const ul = line.match(/^[-*•]\s+(.+)/);
+    const ol = line.match(/^\d+[.)]\s+(.+)/);
+    if(ul || ol){
+      const type = ul ? 'ul' : 'ol';
+      if(listType !== type){ closeList(); html += '<' + type + '>'; listType = type; }
+      html += '<li>' + (ul ? ul[1] : ol[1]) + '</li>';
       continue;
     }
-    if(inList){ html += '</ul>'; inList = false; }
-    if(line === ''){ html += '<br>'; continue; }
+    closeList();
+    if(line === ''){ if(!html.endsWith('<br>')) html += '<br>'; continue; }
     html += line + '<br>';
   }
-  if(inList) html += '</ul>';
+  closeList();
   return html.replace(/\*\*(.+?)\*\*/g,'<b>$1</b>');
 }
 
