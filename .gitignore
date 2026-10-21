@@ -11,3 +11,6 @@ node_modules/
 .env*
 
 deploy-*.log
+# Vercel
+.vercel
+.env.local

@@ -44,7 +44,6 @@ input:focus,select:focus{border-color:var(--amber)}
 .nav + .header-actions{margin-left:0}
 .lang-select{padding:.45rem .55rem;border-radius:8px}
 .chat-cta{font-size:.88rem}
-@media(max-width:980px){.nav{display:none}}
 
 /* HERO */
 .hero{position:relative;padding:4.2rem 0 3.4rem;background:
@@ -213,6 +212,10 @@ input:focus,select:focus{border-color:var(--amber)}
 .msg .bubble.bot{background:var(--panel);border:1px solid var(--line);border-bottom-left-radius:4px}
 .msg.user .bubble{background:var(--grad);color:#181000;font-weight:600;border-bottom-right-radius:4px}
 .bubble b{color:var(--amber2)}
+.bubble h3{font-size:.92rem;color:var(--amber2);margin:.55rem 0 .25rem}
+.bubble ul{padding-left:1.05rem;margin:.25rem 0}
+.bubble li{margin:.15rem 0}
+.bubble code{background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:.05rem .3rem;font-size:.82rem}
 .bubble .warn{display:block;margin-top:.5rem;background:rgba(255,85,85,.12);border:1px solid rgba(255,85,85,.4);color:#ff8f8f;border-radius:8px;padding:.45rem .6rem;font-size:.8rem}
 .bubble .kit{display:grid;gap:.35rem;margin-top:.6rem}
 .bubble .kit button{display:flex;justify-content:space-between;gap:.5rem;background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:.45rem .6rem;color:var(--txt);font-size:.8rem;width:100%}
@@ -278,3 +281,47 @@ html[data-theme=light] .photo-section{box-shadow:0 10px 26px rgba(25,40,20,.08)}
 
 .po-embedded .wa-float{display:none!important}
 .theme-toggle{cursor:pointer;font-size:1rem;line-height:1;padding:0 10px;min-width:38px}
+
+/* ---------- RESPONSIVE M�VIL (fix overflow) ---------- */
+@media(max-width:980px){
+  .b2b-grid{min-width:0}
+  .b2b-grid > *{min-width:0}
+  .quote-box{min-width:0}
+}
+@media(max-width:720px){
+  .header-inner{gap:.45rem}
+  .header-actions{gap:.3rem;margin-left:auto;flex-shrink:0}
+  .brand-text{font-size:.9rem}
+  .brand-text small{display:none}
+  .chat-cta{padding:.55rem .65rem}
+  .chat-cta span{display:none}
+  #btnSettings{display:none}
+  .lang-select{padding:.35rem .4rem;font-size:.8rem}
+  .icon-btn{width:38px;height:38px}
+  .value-strip{grid-template-columns:1fr 1fr}
+  .hero-stats{gap:1.1rem}
+  .quote-add{grid-template-columns:minmax(0,1fr) 56px auto;gap:.35rem}
+  .quote-add > *{min-width:0}
+  .quote-table{display:block;overflow-x:auto;font-size:.8rem}
+  .quote-table td,.quote-table th{overflow-wrap:anywhere}
+  .quote-box{padding:1rem}
+  .calc-grid{padding:1rem}
+  .photo-grid{padding:1.2rem}
+  .bubble{max-width:92%}
+  .chat-drawer{width:100%}
+  .section{padding:2.6rem 0}
+}
+@media(max-width:420px){
+  .hero-stats{flex-wrap:wrap;gap:.8rem}
+  .quote-actions .btn{flex:1 1 auto}
+}
+
+@media(max-width:980px){
+  .nav{display:none}
+}
+
+@media(max-width:560px){
+  .footer-grid{grid-template-columns:1fr;gap:1.3rem}
+  .footer-grid > *{min-width:0}
+  .footer a{overflow-wrap:anywhere}
+}

@@ -92,12 +92,65 @@ function syncChatAgent(){
 
 /* ---------- CHAT ---------- */
 let chatHistory = [];
-const escHTML = s => s.replace(/</g,'&lt;');
+const escHTML = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+/* Saneado de HTML del agente: solo etiquetas/atributos seguros (anti-XSS) */
+const SAFE_TAGS = new Set(['B','STRONG','I','EM','BR','P','UL','OL','LI','DIV','SPAN','SMALL','H3','H4','CODE','PRE']);
+const SAFE_CLASS = new Set(['kit','kit-item','warn']);
+function sanitizeHTML(html){
+  const doc = new DOMParser().parseFromString('<div id="r">'+html+'</div>','text/html');
+  const root = doc.getElementById('r');
+  const walk = node => {
+    [...node.children].forEach(el=>{
+      if(el.tagName === 'BUTTON'){
+        if(!el.dataset.sku){ el.replaceWith(doc.createTextNode(el.textContent)); return; }
+        [...el.attributes].forEach(a=>{ if(!['data-sku','class'].includes(a.name)) el.removeAttribute(a.name); });
+        el.className = 'kit-item';
+      } else if(!SAFE_TAGS.has(el.tagName)){
+        el.replaceWith(doc.createTextNode(el.textContent)); return;
+      } else {
+        [...el.attributes].forEach(a=>{
+          const keepClass = a.name === 'class' && SAFE_CLASS.has(a.value);
+          if(!keepClass) el.removeAttribute(a.name);
+        });
+      }
+      walk(el);
+    });
+  };
+  walk(root);
+  return root.innerHTML;
+}
+
+/* Markdown mínimo y seguro para respuestas del modelo */
+function mdToHTML(md){
+  const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const lines = String(md).split(/\r?\n/);
+  let html = '', inList = false;
+  for(const raw of lines){
+    let line = esc(raw.trim());
+    if(/^#{1,4}\s+/.test(line)){
+      if(inList){ html += '</ul>'; inList = false; }
+      html += '<h3>' + line.replace(/^#{1,4}\s+/,'') + '</h3>';
+      continue;
+    }
+    if(/^[-*•]\s+/.test(line)){
+      if(!inList){ html += '<ul>'; inList = true; }
+      html += '<li>' + line.replace(/^[-*•]\s+/,'') + '</li>';
+      continue;
+    }
+    if(inList){ html += '</ul>'; inList = false; }
+    if(line === ''){ html += '<br>'; continue; }
+    html += line + '<br>';
+  }
+  if(inList) html += '</ul>';
+  return html.replace(/\*\*(.+?)\*\*/g,'<b>$1</b>');
+}
 
 function bubble(role, html){
   const row = document.createElement('div');
   row.className = 'msg ' + role;
-  row.innerHTML = `<span class="mock-avatar">${role==='user'?'🧑':AGENTS[agentKeyOf()].icon}</span><div class="bubble ${role==='user'?'user':'bot'}">${html}</div>`;
+  const safe = role === 'bot' ? sanitizeHTML(html) : escHTML(html);
+  row.innerHTML = `<span class="mock-avatar">${role==='user'?'🧑':AGENTS[agentKeyOf()].icon}</span><div class="bubble ${role==='user'?'user':'bot'}">${safe}</div>`;
   $('chatMsgs').appendChild(row);
   $('chatMsgs').scrollTop = $('chatMsgs').scrollHeight;
   return row;
@@ -115,16 +168,17 @@ async function sendMessage(raw){
   const text = (raw || $('chatInput').value).trim();
   if(!text) return;
   $('chatInput').value = '';
-  bubble('user', escHTML(text));
+  bubble('user', text);
   chatHistory.push({role:'user', content:text});
   const routed = routeAgent(text);
   if(agentKeyOf()==='bermobot' && routed!=='bermobot'){ $('agentSelect').value = routed; syncChatAgent(); }
   agentPending = agentKeyOf();
   typingBubble();
-  let reply;
+  let reply, isMarkdown = false;
   if(AIcfg.endpoint){
     try{
       reply = await callAPI(agentPending, text, chatHistory);
+      if(reply) isMarkdown = true;
       if(!reply && AIcfg.local) reply = localAgentReply(text);
       if(!reply) reply = `<span class="warn">El modelo no devolvió respuesta. Prueba otro modelo en ⚙️.</span>`;
     }
@@ -135,7 +189,7 @@ async function sendMessage(raw){
   }
   await new Promise(r=>setTimeout(r, 450));
   removeTyping();
-  bubble('bot', reply);
+  bubble('bot', isMarkdown ? mdToHTML(reply) : reply);
   chatHistory.push({role:'assistant', content:reply});
   if(ttsOn) Voice.speak(reply);
 }
@@ -468,6 +522,15 @@ document.addEventListener('DOMContentLoaded', async ()=>{
       const p = CATALOG.find(x=>x.sku===cls.sku);
       bubble('bot', `🤖📷 <b>${t('photo_identified')}</b>: ${cls.kw} → ${p.emoji} ${p[LANG]||p.es} (${p.sku}) · ${money(p.price)}\nobservación: modo demo. <div class="kit">${kitHTML(p)}</div>`);
     }, 900);
+  });
+
+  /* Accesibilidad: etiqueta controles sin <label> asociado */
+  document.querySelectorAll('input:not([type=hidden]), select').forEach(el=>{
+    if(el.getAttribute('aria-label')) return;
+    const lab = (el.labels && el.labels[0] && el.labels[0].textContent)
+      || (el.previousElementSibling && el.previousElementSibling.tagName === 'LABEL' && el.previousElementSibling.textContent)
+      || el.getAttribute('placeholder') || el.id;
+    if(lab) el.setAttribute('aria-label', String(lab).trim());
   });
 });
 

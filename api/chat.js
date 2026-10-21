@@ -69,8 +69,8 @@ module.exports = async (req, res) => {
     }
     let content = (data.choices?.[0]?.message?.content || '').trim();
     if (!content && data.choices?.[0]?.message?.reasoning) {
-      const cand = String(data.choices[0].message.reasoning).replace(/\\s+/g, ' ').trim();
-      const sentences = cand.split(/(?<=[.?!])\\s+/).filter(s => s.length > 20);
+      const cand = String(data.choices[0].message.reasoning).replace(/\s+/g, ' ').trim();
+      const sentences = cand.split(/(?<=[.?!])\s+/).filter(s => s.length > 20);
       content = sentences[sentences.length - 1] || cand.slice(-400);
     }
     return res.status(200).json({ content, model: payload.model });
