@@ -135,11 +135,11 @@ function mdToHTML(md){
       continue;
     }
     const ul = line.match(/^[-*•]\s+(.+)/);
-    const ol = line.match(/^\d+[.)]\s+(.+)/);
+    const ol = line.match(/^\*{0,2}(\d+)[.)]\*{0,2}\s+(.+)/);
     if(ul || ol){
       const type = ul ? 'ul' : 'ol';
       if(listType !== type){ closeList(); html += '<' + type + '>'; listType = type; }
-      html += '<li>' + (ul ? ul[1] : ol[1]) + '</li>';
+      html += '<li>' + (ul ? ul[1] : ol[2]) + '</li>';
       continue;
     }
     closeList();
